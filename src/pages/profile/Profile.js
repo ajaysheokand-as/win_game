@@ -1,21 +1,16 @@
 import React from "react";
 import {
-  Button,
   Card,
   CardBody,
   CardImg,
   CardLink,
-  CardText,
   Col,
-  Form,
-  FormGroup,
-  Label,
   ListGroup,
   ListGroupItem,
   Row,
 } from "reactstrap";
-import { Footer } from "../footer/Footer";
-import { TopNavbar } from "../navbar/TopNavbar";
+import { Footer } from "../../components/footer/Footer";
+import { TopNavbar } from "../../components/navbar/TopNavbar";
 import Avatar from 'react-avatar';
 export const Profile = () => {
   return (

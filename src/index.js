@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Login } from './forms/login/Login';
 import { Register } from './forms/register/Register';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { TopNavbar } from './navbar/TopNavbar';
-import { Profile } from './profile/Profile';
+import { Profile } from './pages/profile/Profile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,11 +16,9 @@ root.render(
         <Route index element={<Login />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        {/* </Route> */}
         <Route path="win_game" element={<App />} />
         {/* <Route element={<TopNavbar/>}> */}
         <Route path="profile" element={<Profile/>} />    
-        {/* </R oute> */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,0 +1,18 @@
+.buttonDoubleGradientRed {
+    background:linear-gradient(160deg, green 50%, red 50%);
+}
+
+.buttonDoubleGradientBlue {
+    background:linear-gradient(160deg, green 50%, blue 50%);
+}
+.btn-red{
+    background: red;
+}
+
+.btn-green{
+    background: green;
+}
+
+.btn-blue{
+    background: blue;
+}

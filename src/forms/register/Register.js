@@ -12,11 +12,11 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import { Footer } from "../../footer/Footer";
-import { OTPVerify } from "../../modals/OTPVerify";
-import { LandingNav } from "../../navbar/LandingNav";
-import { NotifySwal } from "../../notification/NotifySwal";
-
+import { NotifySwal } from "../../components/notification/NotifySwal";
+import { OTPVerify } from "../../components/modal/OTPVerify";
+import { Footer } from "../../components/footer/Footer";
+import { LandingNav } from "../../components/navbar/LandingNav";
+import { readToken } from "../../utils/Common";
 export const Register = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState();
@@ -40,6 +40,7 @@ export const Register = () => {
             headers: {
               "content-type": "application/json",
               accept: "application/json",
+              Authorisation: readToken()
             },
             body: JSON.stringify(userData),
           })

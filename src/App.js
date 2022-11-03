@@ -1,9 +1,9 @@
-import { TopNavbar } from "./navbar/TopNavbar.js";
-import { ResultTable } from "./table/ResultTable.js";
-import { Index } from "./winGame/Index.js";
+import { TopNavbar } from "./components/navbar/TopNavbar.js";
+import { ResultTable } from "./components/table/ResultTable.js";
+import { Index } from "./pages/winGame/Index.js";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Footer } from "./footer/Footer.js";
+import { Footer } from "./components/footer/Footer.js";
 
 function App() {
   return (

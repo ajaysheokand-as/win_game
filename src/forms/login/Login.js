@@ -1,7 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { LandingNav } from "../../navbar/LandingNav";
+import { useNavigate } from "react-router";
+import {LandingNav} from "../../components/navbar/LandingNav";
+import {Footer} from "../../components/footer/Footer";
+import SweetAlert from 'react-bootstrap-sweetalert';
+import { writeToken } from "../../utils/Common";
 import {
   Button,
   Card,
@@ -13,7 +16,6 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import { Footer } from "../../footer/Footer";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -24,22 +26,49 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-  async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(data => data.json())
-   }
+   const loginUser = (credentials) => {
+    console.log("Login API Called");
+    fetch(`http://localhost\\Backend\\api_win_game\\users\\user.php`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          type:"login",
+          mobile_no:credentials.number,
+          password: credentials.password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          if(response.success === false){
+            return (<SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Comfirmed")}}>
+            You clicked the button!
+          </SweetAlert>)
+            
+          }else if(response.success === true){
+            console.log("Response",response);
+            writeToken(response.token);
+            navigate("/win_game");
+            // return(
+            //   <SweetAlert warning title="Faild to Login" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Canceled")}}>
+            //   {response.error}
+            // </SweetAlert>
+            // )
+          }
+          
+        })
+        .catch((err) => {
+          console.log("Error",err);
+        });
+    };
 
   const onSubmit = (data) => {
-    loginUser(data)
     console.log(data);
-    navigate("/win_game");
-  }; // your form submit function which will invoke after successful validation 
+    return loginUser(data);
+    // navigate("/win_game");
+  };
 
   const handleRegisterd= () =>{
     navigate("/register");
@@ -48,24 +77,25 @@ export const Login = () => {
   return (
     <div className="container">
       <LandingNav/>
+      {/* <SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Cancelled")}}>
+        You clicked the button!
+      </SweetAlert> */}
       <Row>
         <Col sm="12" className="mt-2" md={{ size: 5 }}>
           <Card>
-            <h2 className="text-center m-4">Login | <Button onClick={handleRegisterd} color="primary" outline>
-          Register
-        </Button></h2>
+            <h2 className="text-center m-4">Login | <Button onClick={handleRegisterd} color="primary" outline>Register</Button></h2>
             <CardBody>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <FormGroup className="m-3">
-                  <Label for="email">Email</Label>
+                  <Label for="mob_no">Mobile No</Label>
                   <input
-                    type="email"
+                    type="number"
                     className="form-control"
-                    {...register("email", { required: "Email is Required" })}
-                    placeholder="Email"
+                    {...register("number", { required: "Mobile is Required" })}
+                    placeholder="Mobile No."
                   />
-                  {errors.email && (
-                    <p style={{ color: "red" }}>{errors.email.message}</p>
+                  {errors.mob_no && (
+                    <p style={{ color: "red" }}>{errors.mob_no.message}</p>
                   )}
                 </FormGroup>
                 <FormGroup className="m-3">
