@@ -8,11 +8,9 @@ import {
   Button,
 } from "reactstrap";
 
-export const RulesModal = (props) => {
-  const [showModal, setShowModal] = useState(props);
-  const handleModel = () => {
-    setShowModal(false);
-  };
+export const RulesModal = ({showModal,setShowModal}) => {
+
+
   return (
     <div>
       <Modal isOpen={showModal} >
@@ -46,7 +44,7 @@ export const RulesModal = (props) => {
           
         </ModalBody>
         <ModalFooter>
-          <Button color="secondary" onClick={handleModel}>
+          <Button color="secondary" onClick={setShowModal}>
             Confirm
           </Button>
         </ModalFooter>

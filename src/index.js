@@ -6,6 +6,7 @@ import { Login } from './forms/login/Login';
 import { Register } from './forms/register/Register';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Profile } from './pages/profile/Profile';
+import { Payment } from './pages/payment/Payment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -19,6 +20,7 @@ root.render(
         <Route path="win_game" element={<App />} />
         {/* <Route element={<TopNavbar/>}> */}
         <Route path="profile" element={<Profile/>} />    
+        <Route path="payment" element={<Payment/>} />    
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

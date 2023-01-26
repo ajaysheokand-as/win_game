@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   CardTitle,
-  Col,
   Modal,
   ModalBody,
   ModalFooter,
@@ -11,21 +10,23 @@ import {
 } from "reactstrap";
 import Moment from "moment";
 import Countdown from "react-countdown";
-import SweetAlert from 'react-bootstrap-sweetalert';
 import './Order.css';
+import swal from 'sweetalert';
+import moment from "moment";
+
 
 export const Order = () => {
   const [selectedNumber, setSelectedNumber] = useState();
-  const [lotteryNumber, setLotteryNumber] = useState();
   const [amount, setAmount] = useState(10);
   const [showModal, setShowModal] = useState(false);
-  const [timeLeft, SetTimeLeft] = useState();
+  const endTime=moment(new Date())
+    .add(2, 'minutes')
+
   const handleModel = () => {
     setShowModal(!showModal);
   };
 
   const confirmOrder = async () => {
-    let rwe
     await fetch(`http://localhost\\Backend\\api_win_game\\orders\\orders.php`, {
       method: "POST",
       headers: {
@@ -33,7 +34,7 @@ export const Order = () => {
         accept: "application/json",
       },
       body: JSON.stringify({
-        user_id: "1100",
+        user_id: "5",
         period_no: "111",
         number: selectedNumber,
         amount: amount,
@@ -41,33 +42,58 @@ export const Order = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        //   setShowAlert(true);
+
         if(!response?.success ){
+          swal({
+            title: "Error",
+            text: response.error,
+            icon: "warning",
+            button: "OK",
+          });
           console.log(response);
-          rwe = (<SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Comfirmed")}}>
-          You clicked the button!
-        </SweetAlert>);
-        return rwe;
+        
+        }else{
+          swal({
+            title: "Order Placed Successfully",
+            text: response.error,
+            icon: "success",
+            button: "OK",
+          });
         }
 
       })
       .catch((err) => {
         console.log(err);
       });
-      console.log(rwe,"tha i rwe")
-      return rwe
+  };
+
+  const fetch_game = async () => {
+    await fetch(`http://localhost/Backend/api_win_game/games/games.php`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleConfirm = async () => {
-    // if (amount > balance) {
-    //   setModalNote("Insufcient Balance Add Money");
-    // } else {
-    //   setBalance(balance - amount);
-    setShowModal(false);
-    let newqw =  await confirmOrder()
-    console.log(newqw,"thia ia newqw 67")
-    return newqw;
-    // }
+    confirmOrder();
+    if (amount < 10) {
+      swal({
+        title: "Error",
+        text: "Amount not less than Rs 10",
+        icon: "warning",
+        button: "OK",
+      });
+    }
   };
 
   const handleNumberSelection = (number) => {
@@ -75,49 +101,14 @@ export const Order = () => {
     setSelectedNumber(number);
     setShowModal(true);
   };
-  useEffect(() => {
-    if (amount <= 10) {
-      setAmount(10);
-    } else if (amount >= 10000) {
-      setAmount(10000);
-    }
-  }, [amount]);
-
-  fetch(`http://localhost\\Backend\\api_win_game\\timer\\timer.php`,{
-    method: "GET",
-    headers: {
-      "content-type": "application/json",
-      accept: "application/json",
-    },
-  })
 
   useEffect(() => {
-    let interval = setInterval(() => {
-       fetch(`http://localhost\\Backend\\api_win_game\\timer\\response.php`,{
-        method: "GET",
-            headers: {
-              "content-type": "application/json",
-              accept: "application/json",
-            },
-      }).then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log("Error",err);
-      });
-    }, 2000000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+    fetch_game();
+  },[]);
+  
   return (
     <div>
       <div>
-        {}
-      {/* <SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Comfirmed")}}>
-          You clicked the button!
-        </SweetAlert> */}
         <Modal isOpen={showModal} toggle={true}>
           <ModalHeader>Join Contest</ModalHeader>
           <ModalBody className="align-items-center justify-content-between">
@@ -183,25 +174,11 @@ export const Order = () => {
           </ModalFooter>
         </Modal>
       </div>
-      <Row className=" justify-content-between">
-        <Col>
-          <CardTitle tag="h5" className="text-left p-2">
-            Period : {Moment().format("DDMMYYYY") + "101"}
-          </CardTitle>
-        </Col>
-        <Col>
-          {lotteryNumber && <span>Lottery Number : {lotteryNumber}</span>}
-        </Col>
-        <Col>
-          <CardTitle tag="h5" className="text-right p-2">
-            Count Down :
-            <span className="text text-success">
-              {timeLeft}
-            </span>
-          </CardTitle>
-        </Col>
-      </Row>
-      <Row xs={4} className="justify-content-between">
+      <div className="d-flex justify-content-between m-3">
+                <div ><span className="font-weight-bold">Period </span> : {Moment().format("DDMMYYYY") + "101"}</div>
+                <div ><Countdown date={endTime} /></div>
+        </div>
+      <div className="d-flex justify-content-between">
         <Button
           className="m-2"
           color="success"
@@ -228,8 +205,8 @@ export const Order = () => {
         >
           Red
         </Button>
-      </Row>
-      <Row xs="6" className="justify-content-center">
+      </div>
+      <Row xs="6" className="justify-content-between">
         <Button
           className="m-1 buttonDoubleGradientRed"
           onClick={() => handleNumberSelection(0)}
@@ -275,7 +252,7 @@ export const Order = () => {
           4
         </Button>
       </Row>
-      <Row xs="6" className="justify-content-center">
+      <Row xs="6" className="justify-content-between">
         <Button
           className="m-1 buttonDoubleGradientBlue"
           onClick={() => handleNumberSelection(5)}

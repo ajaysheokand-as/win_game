@@ -17,6 +17,8 @@ import { OTPVerify } from "../../components/modal/OTPVerify";
 import { Footer } from "../../components/footer/Footer";
 import { LandingNav } from "../../components/navbar/LandingNav";
 import { readToken } from "../../utils/Common";
+import swal from 'sweetalert';
+
 export const Register = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState();
@@ -46,13 +48,24 @@ export const Register = () => {
           })
             .then((response) => response.json())
             .then((response) => {
-              response.success && setShowModal(true);
+              response.success && swal({
+                title: "Regstration Successfull",
+                text: response.error,
+                icon: "success",
+                button: "OK",
+              });
               // setShowAlert(true);
               setApiRes(response);
               console.log("Response",response);
             })
             .catch((err) => {
               setApiRes(err);
+              swal({
+                title: "Error",
+                text: err,
+                icon: "warning",
+                button: "Retry",
+              });
               console.log("Error",err);
             });
         };
@@ -64,7 +77,7 @@ export const Register = () => {
     <div className="container">
       <LandingNav/>
         {showModal && <OTPVerify/>}
-        {apiRes && (apiRes.success === false) ? <NotifySwal props={apiRes.err.error}/> : <NotifySwal/>}
+        {/* {apiRes && (apiRes.success === false) ? <NotifySwal props={apiRes.err.error}/> : <NotifySwal/>} */}
       <Row >
         <Col sm="12" className="mt-2" md={{ size: 5 }} >
         <Card>

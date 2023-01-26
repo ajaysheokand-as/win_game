@@ -1,44 +1,48 @@
-import React, { useState } from 'react'
-import SweetAlert from 'react-bootstrap-sweetalert';
-import { Button, CardTitle, Row } from 'reactstrap'
-import { RulesModal } from '../modal/RulesModal'
+import React, { useState } from 'react';
+import { Button, CardTitle, Row } from 'reactstrap';
+import { CustomModal } from '../modal/CustomModal';
+import { RulesModal } from '../modal/RulesModal';
 
 export const Header = () => {
     const [balance, setBalance] = useState(100);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState({CustomModal:false,RulesModal:false});
 
-    const handleRecharge = () => {
-        setBalance(balance + 100);
+    const handleAddAmount = () => {
+      setShowModal(prev=>({...prev,CustomModal:!prev.CustomModal}))
+      };
+
+    const handleRulesModal = () => {
+      setShowModal(prev=>({...prev,RulesModal:!prev.RulesModal}))
       };
     
       const handleRecord = () =>{
-        // console.log("Handle Record Clicked");
-        // return (<SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Comfirmed")}}>
-        //   You clicked the button!
-        // </SweetAlert>)
       }
   return (
     <div>
-            {/* <SweetAlert showCancel showCloseButton   confirmBtnText="Yessss" success title="Good job!" onConfirm={() =>({ showAlert: false })} onCancel={() => this.setState({ showAlert: false })} >
-          You clicked the button!
-        </SweetAlert> */}
+      {showModal?.CustomModal &&
+       <CustomModal
+          showModal= {true}
+          toggle
+          title="Add Amount"
+          handleConfirm 
+          />}
           <Row className="align-items-center justify-content-between">
             <CardTitle tag="h5" className="text-center txt-lg-center p-2">
               <span>Hi Name, Balance : {balance}</span>
             </CardTitle>
           </Row>
-          {showModal && <RulesModal props={true}/>}
+          {showModal?.RulesModal && <RulesModal showModal={showModal?.RulesModal} setShowModal={handleRulesModal} />}
           <Row xs="4" className="align-items-center justify-content-between">
             <Button
               className="m-2"
               block
               color="success"
-              onClick={handleRecharge}
+              onClick={handleAddAmount}
             >
-              Recharge
+               + Funds
             </Button>
 
-            <Button className="m-2" block color="primary" onClick={()=>{setShowModal(!showModal)}}>
+            <Button className="m-2" block color="primary" onClick={handleRulesModal}>
               Rule's
             </Button>
 

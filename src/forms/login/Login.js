@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import {LandingNav} from "../../components/navbar/LandingNav";
-import {Footer} from "../../components/footer/Footer";
-import SweetAlert from 'react-bootstrap-sweetalert';
+import { LandingNav } from "../../components/navbar/LandingNav";
+import { Footer } from "../../components/footer/Footer";
+import swal from 'sweetalert';
+
 import { writeToken } from "../../utils/Common";
 import {
   Button,
@@ -16,6 +17,7 @@ import {
   Label,
   Row,
 } from "reactstrap";
+import { CustomButton } from "../../components/buttons/CustomButton";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -26,64 +28,67 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-   const loginUser = (credentials) => {
-    console.log("Login API Called");
+  const loginUser = (credentials) => {
     fetch(`http://localhost\\Backend\\api_win_game\\users\\user.php`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify({
-          type:"login",
-          mobile_no:credentials.number,
-          password: credentials.password,
-        }),
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        type: "login",
+        mobile_no: credentials.number,
+        password: credentials.password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success === false) {
+          // console.log("Response false", response);
+          swal({
+            title: "Retry or Register",
+            text: response.error,
+            icon: "warning",
+            button: "Retry",
+          });
+        } else if (response.success === true) {
+          // console.log("Response true", response);
+          writeToken(response.token);
+          swal({
+            title: "Good job!",
+            text: "Login in Successful!",
+            icon: "success",
+            button: "Let's Start",
+          });
+          navigate("/win_game");
+        }
       })
-        .then((response) => response.json())
-        .then((response) => {
-          if(response.success === false){
-            return (<SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Comfirmed")}}>
-            You clicked the button!
-          </SweetAlert>)
-            
-          }else if(response.success === true){
-            console.log("Response",response);
-            writeToken(response.token);
-            navigate("/win_game");
-            // return(
-            //   <SweetAlert warning title="Faild to Login" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Canceled")}}>
-            //   {response.error}
-            // </SweetAlert>
-            // )
-          }
-          
-        })
-        .catch((err) => {
-          console.log("Error",err);
-        });
-    };
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
 
   const onSubmit = (data) => {
     console.log(data);
     return loginUser(data);
-    // navigate("/win_game");
   };
 
-  const handleRegisterd= () =>{
+  const handleRegisterd = () => {
     navigate("/register");
-  }
+  };
 
   return (
     <div className="container">
-      <LandingNav/>
-      {/* <SweetAlert success title="Good job!" onConfirm={()=>{console.log("Comfirmed")}} onCancel={()=>{console.log("Cancelled")}}>
-        You clicked the button!
-      </SweetAlert> */}
+      <LandingNav />
       <Row>
         <Col sm="12" className="mt-2" md={{ size: 5 }}>
           <Card>
-            <h2 className="text-center m-4">Login | <Button onClick={handleRegisterd} color="primary" outline>Register</Button></h2>
+            <h2 className="text-center m-4">
+              Login |{" "}
+              <Button onClick={handleRegisterd} color="primary" outline>
+                Register
+              </Button>
+            </h2>
             <CardBody>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <FormGroup className="m-3">
@@ -134,7 +139,7 @@ export const Login = () => {
           </Card>
         </Col>
       </Row>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

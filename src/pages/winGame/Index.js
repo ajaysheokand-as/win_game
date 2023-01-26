@@ -26,7 +26,7 @@ export const Index = () => {
         <CardBody className="overflow-hidden ">
         <Header/>
         </CardBody>
-      </Card>
+        </Card>
       {/* <OrderModal selectedNumber = {selectedNumber}
       /> */}
       <Card className="mt-5">

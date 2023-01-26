@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     CardTitle,
     Modal,
@@ -7,18 +7,17 @@ import {
     ModalFooter,
     Button,
   } from "reactstrap";
-
-export const CommonModal = (props) => {
+export const CustomModal = (props) => {
     const [amount, setAmount] = useState(10);
     const [showModal, setShowModal] = useState(props.showModal || false);
+ 
   return (
-    <div>
-        <Modal isOpen={showModal} toggle={true}>
+        <Modal isOpen={showModal} toggle={()=>{}}>
         <ModalHeader>{props.title || "Title"}</ModalHeader>
         <ModalBody className="align-items-center justify-content-between">
-          <CardTitle className="text-center p-2">
-            {props.subTitle || "Sub Title"}
-          </CardTitle>
+          {props.subTitle && <CardTitle className="text-center p-2">
+            {props.subTitle}
+          </CardTitle>}
           <div className='align-items-center justify-content-between'>
           <div
             className="btn btn-sm btn-success m-2"
@@ -65,14 +64,13 @@ export const CommonModal = (props) => {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={setShowModal(false)}>
+          <Button color="primary" onClick={()=>setShowModal(false)}>
             Cancel
           </Button>
-          <Button color="secondary" onClick={props.handleConfirm}>
+          <Button color="secondary" >
             Confirm
           </Button>
         </ModalFooter>
       </Modal>
-    </div>
   )
 }

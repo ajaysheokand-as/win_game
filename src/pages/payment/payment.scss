@@ -1,0 +1,97 @@
+.payment{
+    max-width: 500px;
+}
+.header{
+    background-color: rgb(205, 4, 4);
+    height: 150px;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+
+    &__main-heading{
+    font-size: 36px;
+    font-weight: 600;
+    width: auto;
+    padding-top: 25px;
+    
+    }
+}
+
+.amount{
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+
+    &__title{
+        color: grey;
+    }
+
+    &__value{
+        font-size: 56px;
+        font-weight: 700;
+
+    }
+}
+
+.choose_file{
+    margin-top: 20px;
+}
+
+.steps{
+    border-bottom: 1px solid gainsboro;
+    border-top: 1px solid gainsboro;
+    padding: 10px;
+    color: red;
+    &__content{
+        color: green;
+    }
+}
+
+.upi{
+    text-align: center;
+    padding: 10px;
+    background-color: yellow;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.instruction{
+    font-size: 14px;
+    color: gray;
+    margin: 10px;
+}
+
+.ref{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &__inputbox{
+        padding: 5px;
+    }
+    &__number{
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        @media (min-width: 1024px){
+            width: 60%;
+        }
+    }
+
+    &__number:focus{
+        border: none;
+        padding: 10px;
+    }
+
+    &__label{
+        color: black;
+        font-weight: 600;
+        text-align: center;
+    }
+    &__demo-img{
+        width: 100%;
+    }
+}

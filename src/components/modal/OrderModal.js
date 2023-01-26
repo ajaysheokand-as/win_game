@@ -9,22 +9,22 @@ import {
   } from "reactstrap";
 
 export const OrderModal = (props) => {
-    const [amount, setAmount] = useState(10);
+    const amount =100;
     const [showModal, setShowModal] = useState(true);
     const handleModel = () => {
         setShowModal(false);
       };
 
       const confirmOrder = () => {
-        fetch(`http://localhost\\Backend\\api_win_game\\orders\\orders.php`, {
+        fetch(`http://localhost/Backend/api_win_game/orders/orders.php`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
               accept: "application/json",
             },
             body: JSON.stringify({
-                  "user_id" : "111",
-                  "period_no" : "111",
+                  "user_id" : "191",
+                  "period_no" : "191",
                   "number" : props.selectedNumber,
                   "amount" : amount 
             }),
@@ -41,13 +41,8 @@ export const OrderModal = (props) => {
         };
 
       const handleConfirm = () => {
-        // if (amount > balance) {
-        //   setModalNote("Insufcient Balance Add Money");
-        // } else {
-        //   setBalance(balance - amount);
           confirmOrder();
           setShowModal(false);
-        // }
       }
   return (
     <div>
