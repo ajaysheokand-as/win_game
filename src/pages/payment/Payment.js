@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./payment.scss";
 import img from "../../img/tr1.png";
 import swal from "sweetalert";
+import { Constant } from "../../utils/Constant";
 
 export const Payment = (props) => {
   const [image, setImage] = useState();
@@ -26,7 +27,7 @@ export const Payment = (props) => {
     };
 
     await fetch(
-      "http://localhost/Backend/api_win_game/img/HandleImage.php",
+      `${Constant.BASE_URL}/img/HandleImage.php`,
       options
     )
       .then((response) =>

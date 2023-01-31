@@ -4,6 +4,7 @@ import { CustomModal } from '../modal/CustomModal';
 import { RulesModal } from '../modal/RulesModal';
 import swal from 'sweetalert';
 import { Payment } from '../../pages/payment/Payment';
+import { Constant } from '../../utils/Constant';
 
 export const Header = () => {
     const [balance, setBalance] = useState(100);
@@ -20,7 +21,7 @@ export const Header = () => {
       };
     
     const handleRecord = async () =>{
-      await fetch(`http://localhost/Backend/api_win_game/winingNumber/wonNumber.php?period_no=111`, {
+      await fetch(`${Constant.BASE_URL}/winingNumber/wonNumber.php?period_no=111`, {
         // localhost\Backend\api_win_game\winingNumber\wonNumber.php?period_no=111
       method: "GET",
       headers: {

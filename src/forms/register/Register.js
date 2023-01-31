@@ -17,6 +17,7 @@ import { Footer } from "../../components/footer/Footer";
 import { LandingNav } from "../../components/navbar/LandingNav";
 import { readToken } from "../../utils/Common";
 import swal from 'sweetalert';
+import { Constant } from "../../utils/Constant";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -36,12 +37,12 @@ export const Register = () => {
       }; // your form submit function which will invoke after successful validation
 
       const addUser = () => {
-        fetch(`http://localhost\\Backend\\api_win_game\\users\\user.php`, {
+        fetch(`${Constant.BASE_URL}\\users\\user.php`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
               accept: "application/json",
-              Authorisation: readToken()
+              Authorization: readToken()
             },
             body: JSON.stringify(userData),
           })

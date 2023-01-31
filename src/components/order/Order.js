@@ -13,6 +13,7 @@ import Countdown from "react-countdown";
 import './Order.css';
 import swal from 'sweetalert';
 import moment from "moment";
+import { Constant } from "../../utils/Constant";
 
 
 export const Order = () => {
@@ -28,7 +29,7 @@ export const Order = () => {
   };
 
   const confirmOrder = async () => {
-    await fetch(`http://localhost/Backend/api_win_game/orders/orders.php`, {
+    await fetch(`${Constant.BASE_URL}/orders/orders.php`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -69,7 +70,7 @@ export const Order = () => {
   };
 
   const fetch_game = async () => {
-    await fetch(`http://localhost/Backend/api_win_game/games/games.php`, {
+    await fetch(`${Constant.BASE_URL}/games/games.php`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

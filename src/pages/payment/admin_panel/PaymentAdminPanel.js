@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import swal from "sweetalert";
+import { Constant } from "../../../utils/Constant";
 
 export const PaymentAdminPanel = () => {
   const [transactionData, setTransactionData] = useState([]);
@@ -19,7 +20,7 @@ export const PaymentAdminPanel = () => {
     }).then(async (willApprove) => {
       if (willApprove) {
         await fetch(
-          `http://localhost/Backend/api_win_game/transaction/transaction.php`,
+          `${Constant.BASE_URL}/transaction/transaction.php`,
         //   localhost\Backend\api_win_game\transaction\transaction.php
           {
             method: "PUT",
@@ -54,7 +55,7 @@ export const PaymentAdminPanel = () => {
   // Api Call to fetch the Transaction Data
   const fetch_transaction = async (status) => {
     await fetch(
-      `http://localhost/Backend/api_win_game/transaction/transaction.php?status=${status}`,
+      `${Constant.BASE_URL}/transaction/transaction.php?status=${status}`,
       {
         method: "GET",
         headers: {

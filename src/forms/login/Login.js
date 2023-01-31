@@ -18,6 +18,7 @@ import {
   Row,
 } from "reactstrap";
 import { CustomButton } from "../../components/buttons/CustomButton";
+import { Constant } from "../../utils/Constant";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export const Login = () => {
   } = useForm();
 
   const loginUser = (credentials) => {
-    fetch(`http://localhost\\Backend\\api_win_game\\users\\user.php`, {
+    fetch(`${Constant.BASE_URL}\\users\\user.php`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

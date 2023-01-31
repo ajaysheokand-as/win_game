@@ -7,6 +7,7 @@ import {
     ModalFooter,
     Button,
   } from "reactstrap";
+import { Constant } from '../../utils/Constant';
 
 export const OrderModal = (props) => {
     const [amount, setAmount] = useState(10);
@@ -16,7 +17,7 @@ export const OrderModal = (props) => {
       };
 
       const confirmOrder = () => {
-        fetch(`http://localhost/Backend/api_win_game/orders/orders.php`, {
+        fetch(`${Constant.BASE_URL}/orders/orders.php`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
