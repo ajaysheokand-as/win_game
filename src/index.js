@@ -7,6 +7,7 @@ import { Register } from './forms/register/Register';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Profile } from './pages/profile/Profile';
 import { Payment } from './pages/payment/Payment';
+import { PaymentAdminPanel } from './pages/payment/admin_panel/PaymentAdminPanel';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -18,9 +19,9 @@ root.render(
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="win_game" element={<App />} />
-        {/* <Route element={<TopNavbar/>}> */}
         <Route path="profile" element={<Profile/>} />    
         <Route path="payment" element={<Payment/>} />    
+        <Route path="paymentAdminPanel" element={<PaymentAdminPanel/>} />    
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

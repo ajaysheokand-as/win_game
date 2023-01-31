@@ -18,7 +18,7 @@ export const CustomModal = (props) => {
           {props.subTitle && <CardTitle className="text-center p-2">
             {props.subTitle}
           </CardTitle>}
-          <div className='align-items-center justify-content-between'>
+          <div className='d-flex justify-content-around'>
           <div
             className="btn btn-sm btn-success m-2"
             onClick={() => setAmount(amount + 10)}
@@ -38,11 +38,11 @@ export const CustomModal = (props) => {
             + 1000
           </div>
           </div>
-          <h5>
-            Contract Money: <strong>{amount}</strong>
+          <h5 className='m-4'>
+            Add Amount: <strong>{amount}</strong>
           </h5>
 
-          <div className='align-items-center justify-content-between'>
+          <div className='d-flex justify-content-around'>
           <div
             className="btn btn-sm btn-warning m-2"
             onClick={() => setAmount(amount - 10)}
@@ -67,7 +67,7 @@ export const CustomModal = (props) => {
           <Button color="primary" onClick={()=>setShowModal(false)}>
             Cancel
           </Button>
-          <Button color="secondary" >
+          <Button color="secondary" disabled={!typeof(props.handleConfirm) === "function"}  onClick={() => typeof(props.handleConfirm) === "function" && props.handleConfirm(amount)}>
             Confirm
           </Button>
         </ModalFooter>

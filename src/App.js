@@ -5,7 +5,7 @@ import { Footer } from "./components/footer/Footer.js";
 
 function App() {
   return (
-    <div>
+    <div style={{maxWidth: "500px", marginLeft:"auto", marginRight:"auto"}}>
       <TopNavbar />
       {/* <Register/> */}
       {/* <Login/> */}

@@ -18,8 +18,9 @@ import moment from "moment";
 export const Order = () => {
   const [selectedNumber, setSelectedNumber] = useState();
   const [amount, setAmount] = useState(10);
+  const [game, setGame] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const endTime=moment(new Date())
+  const endTime = moment(new Date())
     .add(2, 'minutes')
 
   const handleModel = () => {
@@ -27,7 +28,7 @@ export const Order = () => {
   };
 
   const confirmOrder = async () => {
-    await fetch(`http://localhost\\Backend\\api_win_game\\orders\\orders.php`, {
+    await fetch(`http://localhost/Backend/api_win_game/orders/orders.php`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -78,6 +79,8 @@ export const Order = () => {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
+        if(response.success)
+        setGame(response.data)
       })
       .catch((err) => {
         console.log(err);
@@ -105,6 +108,8 @@ export const Order = () => {
   useEffect(() => {
     fetch_game();
   },[]);
+
+
   
   return (
     <div>
@@ -176,7 +181,7 @@ export const Order = () => {
       </div>
       <div className="d-flex justify-content-between m-3">
                 <div ><span className="font-weight-bold">Period </span> : {Moment().format("DDMMYYYY") + "101"}</div>
-                <div ><Countdown date={endTime} /></div>
+                <div ><Countdown date={  Moment(game?.end_time).format('hh-mm-ss')} /></div>
         </div>
       <div className="d-flex justify-content-between">
         <Button

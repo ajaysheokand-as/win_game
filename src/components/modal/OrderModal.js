@@ -9,7 +9,7 @@ import {
   } from "reactstrap";
 
 export const OrderModal = (props) => {
-    const amount =100;
+    const [amount, setAmount] = useState(10);
     const [showModal, setShowModal] = useState(true);
     const handleModel = () => {
         setShowModal(false);
@@ -105,7 +105,7 @@ export const OrderModal = (props) => {
           <Button color="primary" onClick={handleModel}>
             Cancel
           </Button>
-          <Button color="secondary" onClick={handleConfirm}>
+          <Button color="secondary" onClick={props.handleConfirm(amount)}>
             Confirm
           </Button>
         </ModalFooter>

@@ -12,7 +12,6 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import { NotifySwal } from "../../components/notification/NotifySwal";
 import { OTPVerify } from "../../components/modal/OTPVerify";
 import { Footer } from "../../components/footer/Footer";
 import { LandingNav } from "../../components/navbar/LandingNav";
@@ -37,7 +36,7 @@ export const Register = () => {
       }; // your form submit function which will invoke after successful validation
 
       const addUser = () => {
-        fetch(`http://localhost\\Backend\\api_win_game\\users\\add.php`, {
+        fetch(`http://localhost\\Backend\\api_win_game\\users\\user.php`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -74,12 +73,12 @@ export const Register = () => {
     }
 
   return (
-    <div className="container">
+    <div className="container" style={{maxWidth: "500px", marginLeft:"auto", marginRight:"auto"}}>
       <LandingNav/>
         {showModal && <OTPVerify/>}
         {/* {apiRes && (apiRes.success === false) ? <NotifySwal props={apiRes.err.error}/> : <NotifySwal/>} */}
-      <Row >
-        <Col sm="12" className="mt-2" md={{ size: 5 }} >
+      <Row className="d-flex flex-column">
+        <Col className="mt-2">
         <Card>
         
           <CardBody>
@@ -134,11 +133,11 @@ export const Register = () => {
           </CardBody>
         </Card>
         </Col>
-        <Col sm="12" md={{ size: 7}} className="mt-2">
+        <Col className="mt-2">
         <Card >
         <CardImg top width="100%" src="https://picsum.photos/400/260" alt="Card image cap" />
             </Card>
-            </Col>
+        </Col>
       </Row>
       <Footer/>
     </div>

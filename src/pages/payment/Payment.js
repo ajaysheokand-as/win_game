@@ -3,9 +3,10 @@ import "./payment.scss";
 import img from "../../img/tr1.png";
 import swal from "sweetalert";
 
-export const Payment = () => {
+export const Payment = (props) => {
   const [image, setImage] = useState();
-
+  const amount = props.amount;
+  console.log("This is amount", amount);
   const handleImageSelect = (e) => {
     const selectedImage = e.target.files[0];
     setImage(selectedImage);
@@ -66,7 +67,7 @@ export const Payment = () => {
         </div>
         <div className="amount">
           <div className="amount__title">Click the amount to copy</div>
-          <div className="amount__value"> ₹ 500.00</div>
+          <div className="amount__value"> {amount}</div>
           <div className="amount__serial-no">
             <span className="amount__title">Serial No.: </span> {Serial_no}
           </div>

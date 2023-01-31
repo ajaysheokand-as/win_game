@@ -4,7 +4,6 @@ import {
   CardBody,
   CardImg,
   CardLink,
-  Col,
   ListGroup,
   ListGroupItem,
   Row,
@@ -14,20 +13,16 @@ import { TopNavbar } from "../../components/navbar/TopNavbar";
 import Avatar from 'react-avatar';
 export const Profile = () => {
   return (
-    <div>
+    <div style={{maxWidth: "500px", marginLeft:"auto", marginRight:"auto"}}>
       <TopNavbar />
       <div className="container">
-        <Row>
-          <Col sm="12" className="mt-2" md={{ size: 5 }}>
+        <Row className="d-flex felx-column">
+          <div sm="12" className="mt-2" md={{ size: 5 }}>
             <Card>
                 <div className="justify-content-center flex">
             <Avatar src="https://picsum.photos/70/70" className="mb-4 mx-3 mt-1 inline"  size="70" round={true} />
             <h2  className="d-inline-block mt-4 mx-5"> Hi Ajay </h2>
             </div>
-                {/* <Row>
-                <Col xs="4" ><Avatar className="m-1 block" name="Ajay" size="70" round={true} /></Col>
-                <Col xs="4"><h2 className="text-center m-4"> Hi Ajay </h2></Col>
-            </Row> */}
              
               <CardBody>
                 <ListGroup flush>
@@ -55,8 +50,8 @@ export const Profile = () => {
                 </CardLink>
               </CardBody>
             </Card>
-          </Col>
-          <Col sm="12" md={{ size: 7 }} className="mt-2">
+          </div>
+          <div sm="12" md={{ size: 7 }} className="mt-2">
             <Card>
               <CardImg
                 top
@@ -65,7 +60,7 @@ export const Profile = () => {
                 alt="Card image cap"
               />
             </Card>
-          </Col>
+          </div>
         </Row>
         <Footer/>
       </div>

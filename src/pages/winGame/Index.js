@@ -9,16 +9,6 @@ import { Header } from "../../components/header/Header";
 import { Order } from "../../components/order/Order";
 export const Index = () => {
   const [showAlert, setShowAlert] = useState(false);
-  // const handleConfirm = () => {
-  //   if (amount > balance) {
-  //     setModalNote("Insufcient Balance Add Money");
-  //   } else {
-  //     setBalance(balance - amount);
-  //     confirmOrder();
-  //     setModal(false);
-  //   }
-  // };
-
   return (
     <div className="container">
       <Card className="mt-5">

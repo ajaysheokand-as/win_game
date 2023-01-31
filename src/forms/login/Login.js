@@ -78,10 +78,10 @@ export const Login = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{maxWidth: "500px", marginLeft:"auto", marginRight:"auto"}}>
       <LandingNav />
-      <Row>
-        <Col sm="12" className="mt-2" md={{ size: 5 }}>
+      <Row className="d-flex flex-column">
+        <Col  className="mt-2" >
           <Card>
             <h2 className="text-center m-4">
               Login |{" "}
@@ -128,7 +128,7 @@ export const Login = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col sm="12" md={{ size: 7 }} className="mt-2">
+        <Col className="mt-2">
           <Card>
             <CardImg
               top
