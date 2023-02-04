@@ -14,6 +14,8 @@ import './Order.css';
 import swal from 'sweetalert';
 import moment from "moment";
 import { Constant } from "../../utils/Constant";
+import { handleResultResponse } from "../header/Header";
+
 
 
 export const Order = () => {
@@ -21,6 +23,7 @@ export const Order = () => {
   const [amount, setAmount] = useState(10);
   const [game, setGame] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [remainTime,setRemainTime] = useState();
   const endTime = moment(new Date())
     .add(2, 'minutes')
 
@@ -111,7 +114,26 @@ export const Order = () => {
   },[]);
 
 
+  const parseDate = (date )=>{
+    const parsedDate = moment(date, 'YYYY-MM-DD HH:mm:ss');
+   return parsedDate.format('MM/DD/YYYY hh:mm:ss a');
+
+  }
   
+  const onTick = ({total})=>{
+    const sec = total / 1000
+    if(sec <= 30){
+
+    }
+    if(sec === 5){
+
+    }
+    console.log("sec",sec)
+    if(sec < 2){
+      console.log("sec",sec)
+      handleResultResponse()
+    }
+  }
   return (
     <div>
       <div>
@@ -181,9 +203,16 @@ export const Order = () => {
         </Modal>
       </div>
       <div className="d-flex justify-content-between m-3">
-                <div ><span className="font-weight-bold">Period </span> : {Moment().format("DDMMYYYY") + "101"}</div>
-                <div ><Countdown date={  Moment(game?.end_time).format('hh-mm-ss')} /></div>
+        <div>
+          <span className="font-weight-bold">Period </span> :{" "}
+          {Moment().format("DDMMYYYY") + "101"}
         </div>
+        <div>
+          <Countdown date={parseDate(game?.end_time)} 
+          onTick={onTick}
+          />
+        </div>
+      </div>
       <div className="d-flex justify-content-between">
         <Button
           className="m-2"

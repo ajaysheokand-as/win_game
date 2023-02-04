@@ -6,6 +6,32 @@ import swal from 'sweetalert';
 import { Payment } from '../../pages/payment/Payment';
 import { Constant } from '../../utils/Constant';
 
+export const handleResultResponse = async () =>{
+  await fetch(`${Constant.BASE_URL}/winingNumber/wonNumber.php?period_no=111`, {
+    // localhost\Backend\api_win_game\winingNumber\wonNumber.php?period_no=111
+  method: "GET",
+  headers: {
+    "content-type": "application/json",
+    accept: "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((response) => {
+    console.log(response);
+    console.log("This is won number",response.won_number);
+    const wonNumber = response.won_number;
+    swal({
+      title: wonNumber,
+      text: "is the Won Number",
+      icon: "success",
+      button: "OK",
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  }
+
 export const Header = () => {
     const [balance, setBalance] = useState(100);
     const [payment, setPayment] = useState({showPayment:false, amount:10});
@@ -20,31 +46,7 @@ export const Header = () => {
       setShowModal(prev=>({...prev,RulesModal:!prev.RulesModal}))
       };
     
-    const handleRecord = async () =>{
-      await fetch(`${Constant.BASE_URL}/winingNumber/wonNumber.php?period_no=111`, {
-        // localhost\Backend\api_win_game\winingNumber\wonNumber.php?period_no=111
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        console.log("This is won number",response.won_number);
-        const wonNumber = response.won_number;
-        swal({
-          title: wonNumber,
-          text: "is the Won Number",
-          icon: "success",
-          button: "OK",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      }
+
     const handleConfirm = (amount) => {
       console.log("This is handleConfirm");
       setPayment({showPayment: true, amount});
@@ -80,7 +82,7 @@ export const Header = () => {
               Rule's
             </Button>
 
-            <Button className="m-2" block color="danger" onClick={handleRecord}>
+            <Button className="m-2" block color="danger" onClick={handleResultResponse}>
               Result Test
             </Button>
           </Row>
