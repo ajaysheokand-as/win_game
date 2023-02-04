@@ -5,6 +5,7 @@ import { Constant } from "../../../utils/Constant";
 
 export const PaymentAdminPanel = () => {
   const [transactionData, setTransactionData] = useState([]);
+  const [selectedCheck, setselectedCheck] = useState();
   const [isChecked, setIsChecked] = useState(true);
   useEffect(() => {
     fetch_transaction(-1);
@@ -40,6 +41,8 @@ export const PaymentAdminPanel = () => {
             setTransactionData(response.data);
             swal(status === 1 ? "Successfully approved" : "Transaction Decline", {
                 icon: status === 1 ?  "success" : "warning",
+              }).then(()=>{
+                fetch_transaction(selectedCheck);
               });
           })
           .catch((err) => {
@@ -47,7 +50,9 @@ export const PaymentAdminPanel = () => {
           });
        
       } else {
-        swal("Hey this transaction not approved!!");
+        swal("Hey this transaction not approved!!").then(()=>{
+            fetch_transaction(selectedCheck);
+          });;
       }
     });
   };
@@ -74,8 +79,10 @@ export const PaymentAdminPanel = () => {
       });
   };
   const onChangeValue = (event) => {
-    setIsChecked(false);
+    setIsChecked(event.target.value == -1 ? true : false);
     fetch_transaction(event.target.value);
+    setselectedCheck(event.target.value);
+
   };
   return (
     <div style={{ maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}>

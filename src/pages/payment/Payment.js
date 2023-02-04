@@ -7,7 +7,7 @@ import { Constant } from "../../utils/Constant";
 export const Payment = (props) => {
   const [image, setImage] = useState();
   const amount = props.amount;
-  console.log("This is amount", amount);
+  
   const handleImageSelect = (e) => {
     const selectedImage = e.target.files[0];
     setImage(selectedImage);
