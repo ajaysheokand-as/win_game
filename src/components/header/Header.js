@@ -5,6 +5,7 @@ import { RulesModal } from '../modal/RulesModal';
 import swal from 'sweetalert';
 import { Payment } from '../../pages/payment/Payment';
 import { Constant } from '../../utils/Constant';
+import { useNavigate } from "react-router-dom";
 
 export const handleResultResponse = async () =>{
   await fetch(`${Constant.BASE_URL}/winingNumber/wonNumber.php?period_no=111`, {
@@ -33,6 +34,7 @@ export const handleResultResponse = async () =>{
   }
 
 export const Header = () => {
+    const navigate = useNavigate();
     const [balance, setBalance] = useState(100);
     const [payment, setPayment] = useState({showPayment:false, amount:10});
     const [showModal, setShowModal] = useState({CustomModal:false,RulesModal:false});
@@ -49,7 +51,11 @@ export const Header = () => {
 
     const handleConfirm = (amount) => {
       console.log("This is handleConfirm");
-      setPayment({showPayment: true, amount});
+      if(amount<10){
+        swal("Minimum amount is Rs 10")
+      }else{
+        setPayment({showPayment: true, amount});
+      }
     }
   return (
     <>
@@ -83,7 +89,7 @@ export const Header = () => {
             </Button>
 
             <Button className="m-2" block color="danger" onClick={handleResultResponse}>
-              Result Test
+              Result
             </Button>
           </Row>
     </div>
